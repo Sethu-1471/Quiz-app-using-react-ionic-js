@@ -1,11 +1,10 @@
-import Menu from './components/Menu';
 import Page from './pages/Page';
 import FirstPage from './pages/FirstPage';
 import React, {useState} from 'react';
 import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Redirect, Route, Router } from 'react-router-dom';
-import { personCircle, search, refresh, helpCircle, star, create, ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
+import { refresh } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -73,10 +72,13 @@ const App: React.FC = () => {
   </IonToolbar>
       </IonHeader>
               <IonContent fullscreen>
-
-      <Route path="/quiz" component={() => <Page name={state.name} handler={stateHandler}  />} exact />
+                <Switch>
+                <React.Fragment>
+            <Route path="/quiz" component={() => <Page name={state.name} score={state.score} handler={stateHandler} />} exact />
           <Route path="/page/landing" component={() => <FirstPage setName={stateHandler} />} exact />
-          <Redirect from="/" to="/page/landing" exact />
+                    <Redirect from="/" to="/page/landing" exact />
+              </React.Fragment>
+              </Switch>
       </IonContent>
     </IonPage>
           </IonRouterOutlet>

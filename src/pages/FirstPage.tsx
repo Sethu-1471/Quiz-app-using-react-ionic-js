@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Box from "@material-ui/core/Box";
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem, IonLabel, IonList, IonItemDivider } from '@ionic/react';
 import "./FirstPage.css";
 import logo from "../Images/logoSplash.png"
 import Snackbar from '@material-ui/core/Snackbar'
@@ -10,8 +9,6 @@ import { useHistory } from 'react-router-dom';
 function Alert(props:any) {
 	return <MuiAlert elevation={6} variant='filled' {...props} />
 }
-
-
 const FirstPage = (props: any) => 
 {
     const history = useHistory();
@@ -31,7 +28,7 @@ const FirstPage = (props: any) =>
 		setOpen(false)
 	}
     return (
-        <>
+        <React.Fragment>
             <Snackbar
 				open={open}
 				autoHideDuration={6000}
@@ -60,7 +57,7 @@ const FirstPage = (props: any) =>
 						} else handleClick()
 					}} value="Login" className="btn solid" />
             </Box>
-            </>
+            </React.Fragment>
     )
 }
 

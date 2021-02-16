@@ -7,10 +7,10 @@ import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-import ReactCardFlip from 'react-card-flip';
 import dataSource from '../data/main'
 import Box from "@material-ui/core/Box";
 import { useHistory } from 'react-router-dom';
+import Result from './result';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -29,13 +29,12 @@ const [value, setValue] = React.useState('')
 const [score, setScore] = React.useState(0)
   const [index, setIndex] = React.useState(0)
   const [data, setData] = React.useState(dataSource);
-  const [isFlipped, setIsFlipped] = React.useState(false);
+	const [isFlipped, setIsFlipped] = React.useState(false);
+	const [showResult, setShowResult] = React.useState(false);
   
 	const handleRadioChange = (event: any) => {
 		setValue(event.target.value)
 	}
-	console.log({score});
-	
   
   const handleClick = (e:any) => {
     e.preventDefault();
@@ -51,25 +50,27 @@ const [score, setScore] = React.useState(0)
     
 
 		if (value + '' === data.answers[index] + '') {
-			setScore((score) => score + 1)
-			props.handler({ score: score + 1 })
+			setScore((score) => score + 1);
 		}
 
 		if (index === data.image.length - 1) {
 			props.handler({ name: '' });
-			history.push("/page/landing");
+			setShowResult(true);
+		} else {
+			setIndex((index) => index + 1)	
 		}
-		setIndex((index) => index + 1)
 	}
 
   return (
-	  <>
+	  <React.Fragment>
+		  <Result name={props.name} score={score} showResult={showResult} />
 		<Paper
 			elevation={0}
 			  style={{ padding: '8px', width: '100%' }}
 			  key={index}
     >
-      <p>Question: {index + 1}/ {data.image.length} </p>
+			  <p>Hello { props.name } </p>
+	  <p>Question: {index + 1}/ {data.image.length} </p>
 			<form onSubmit={handleSubmit} style={{}}>
 				<FormControl component='fieldset' className={classes.formControl}>
 					<FormLabel
@@ -121,6 +122,6 @@ const [score, setScore] = React.useState(0)
 				</FormControl>
 			</form>
       </Paper>
-      </>
+      </React.Fragment>
 	)
 }
